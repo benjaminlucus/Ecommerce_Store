@@ -1,0 +1,53 @@
+"use client"
+
+import { Button } from '@/components/ui/button'
+import React, { useState, useRef } from 'react'
+import {useDropdownPosition} from "./use-dropdown-position"
+import SubcategoryMenu from "./SubcategoryMenu";
+
+
+const CategoryDropdown = ({ isActive, category, isNavigationHovered }) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const dropdownRef = useRef(null)
+    const {getDropdownPosition} = useDropdownPosition(dropdownRef);
+
+    const onMouseEnter = () => {
+        if (category.subcategories) {
+            setIsOpen(true)
+        }
+    }
+
+    const onMouseLeave = () => {
+        setIsOpen(false)
+    }
+
+    const dropdownPosition = getDropdownPosition();
+
+    return (
+        <div className='relative' onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter} ref={dropdownRef}
+        >
+            <div>
+                <Button
+                    variant="elevated"
+                    className={
+                        `h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black ${isActive && !isNavigationHovered && "bg-white border-primary"}`
+                    }
+                >
+                    {category.name}
+                </Button>
+
+                {category.subcategories && category.subcategories.length > 0 &&
+                    <div className={`opacity-0 absolute border-b-[10px] -bottom-3 w-0 h-0 border-l-[10px] border-r-[10px] border-l-transparent border-r-transparent border-b-black left-1/2 -translate-x-1/2 ${isOpen && "opacity-100"}`} />
+                }
+            </div>
+
+            <SubcategoryMenu
+            category={category}
+            isOpen={isOpen}
+            position={dropdownPosition} 
+            />
+        </div>
+    )
+}
+
+export default CategoryDropdown
