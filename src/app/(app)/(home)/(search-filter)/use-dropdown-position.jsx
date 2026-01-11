@@ -14,7 +14,7 @@ export const useDropdownPosition = (ref) => {
 
         if(left < 0) {
             left = window.innerHTML - dropdownWidth - 16;
-        }
+      }
 
         if(left < 0) {
             left = 16; // minimum margin

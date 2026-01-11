@@ -7,7 +7,6 @@ import Navbar from "./(home)/Navbar";
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { subtle } from "node:crypto";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -48,6 +47,8 @@ export default async function RootLayout({ children }) {
       }),
     }
   })
+
+  // console.log(formattedData)
 
   return (
     <html lang="en">
