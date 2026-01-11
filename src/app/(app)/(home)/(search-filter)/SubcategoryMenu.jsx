@@ -1,0 +1,28 @@
+import Link from 'next/link';
+import React from 'react'
+
+const SubcategoryMenu = ({ category, isOpen, position
+}) => {
+    if (!isOpen || !category.subcategories || !category.subcategories.length === 0) {
+        return null;
+    } 
+
+    const backgroundColor = category.color || '#F5F5F5';
+
+    return (
+        <div className='fixed z-100' style={{ top: position.top, left: position.left }}>
+            <div className='h-3 w-60' />
+            <div className='w-60 text-black rounded-md border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden -translate-x-[2px] -translate-y-[2px]' style={{ backgroundColor }}>
+                <div>
+                    {category.subcategories.map((subcategory) => (
+                        <Link key={subcategory.id} href={`/${category.slug}/${subcategory.slug}`} className='w-full text-left p-4 hover:bg-black hover:text-white  cursor-pointer flex justify-between underline font-medium'>
+                            {subcategory.name}
+                        </Link>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default SubcategoryMenu
